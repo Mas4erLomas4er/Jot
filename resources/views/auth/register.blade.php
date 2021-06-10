@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title') Register | Jot - The SPA App @endsection
+
 @section('content')
     <div class="min-h-full py-8 mx-0 flex justify-center items-center bg-gray-300">
         <div class="w-100 bg-blue-900 rounded-lg shadow-xl p-6">
