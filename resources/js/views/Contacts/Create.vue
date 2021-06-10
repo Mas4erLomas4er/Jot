@@ -41,7 +41,7 @@ export default {
 
     methods : {
         submitForm () {
-            axios.post( '/api/contacts/', this.form )
+            axios.post( '/api/contacts', this.form )
                 .then( response => {
                     this.$router.push(response.data.links.self);
                 } )

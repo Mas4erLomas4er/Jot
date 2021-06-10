@@ -25,7 +25,7 @@ class Contact extends Model
 
     public function scopeBirthdays ($query)
     {
-        return $query->whereRaw('Extract(MONTH from birthday ) =' . now()->format('m'));
+        return $query->whereMonth('birthday', '=', now()->format('m'));
     }
 
     public function setBirthdayAttribute ($birthday)

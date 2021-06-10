@@ -66,7 +66,7 @@ class ContactsTest extends TestCase
 
         $this->assertEquals($this->data()['name'], $contact->name);
         $this->assertEquals($this->data()['email'], $contact->email);
-        $this->assertEquals($this->data()['birthday'], $contact->birthday->format('m/d/Y'));
+        $this->assertEquals($this->data()['birthday'], $contact->birthday->format('d.m.Y'));
         $this->assertEquals($this->data()['company'], $contact->company);
 
         $response->assertStatus(Response::HTTP_CREATED);
@@ -87,9 +87,9 @@ class ContactsTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'name' => $contact->name,
+                'name' => ucwords($contact->name),
                 'email' => $contact->email,
-                'birthday' => $contact->birthday->format('d/m/Y'),
+                'birthday' => $contact->birthday->format('d.m.Y'),
                 'company' => $contact->company,
                 'last_updated' => $contact->updated_at->diffForHumans(),
             ],
@@ -122,9 +122,9 @@ class ContactsTest extends TestCase
 
         $contact = $contact->fresh();
 
-        $this->assertEquals($this->data()['name'], $contact->name);
+        $this->assertEquals($this->data()['name'], ucwords($contact->name));
         $this->assertEquals($this->data()['email'], $contact->email);
-        $this->assertEquals($this->data()['birthday'], $contact->birthday->format('m/d/Y'));
+        $this->assertEquals($this->data()['birthday'], $contact->birthday->format('d.m.Y'));
 
         $this->assertEquals($this->data()['company'], $contact->company);
         $response->assertStatus(Response::HTTP_OK);
@@ -179,7 +179,7 @@ class ContactsTest extends TestCase
     /** @test */
     public function fields_are_required ()
     {
-        collect(['name', 'email', 'birthday', 'company', 'user_id'])->each(function ($field)
+        collect(['name', 'email', 'birthday', 'company'])->each(function ($field)
         {
             $response = $this->post(
                 '/api/contacts',
@@ -219,9 +219,9 @@ class ContactsTest extends TestCase
     private function data () : array
     {
         return [
-            'name' => 'Test name',
+            'name' => 'Test Name',
             'email' => 'test@email.com',
-            'birthday' => '05/14/1988',
+            'birthday' => '14.05.1988',
             'company' => 'ABC String',
             'api_token' => $this->user->api_token,
             'user_id' => $this->user->id,
