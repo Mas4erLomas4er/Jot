@@ -20,13 +20,12 @@ class Contact extends Model
 
     public function path ()
     {
-        return '/contacts/' .  $this->id;
+        return '/contacts/' . $this->id;
     }
 
     public function scopeBirthdays ($query)
     {
-        $currentMonth = '"%-' . now()->format('m') . "-%\"";
-        return $query->whereRaw("birthday like $currentMonth");
+        return $query->whereRaw('Extract(MONTH from birthday ) =' . now()->format('m'));
     }
 
     public function setBirthdayAttribute ($birthday)

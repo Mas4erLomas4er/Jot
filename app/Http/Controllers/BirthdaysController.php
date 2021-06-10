@@ -11,7 +11,7 @@ class BirthdaysController extends Controller
     {
         $contacts = request()->user()->contacts()
             ->birthdays()
-            ->orderByRaw('DAY(birthday)')
+            ->orderByRaw('Extract(DAY from birthday )')
             ->get();
 
         return Contact::collection($contacts);
